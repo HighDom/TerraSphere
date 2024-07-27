@@ -45,7 +45,7 @@ const index = () => {
                         <CustomButton 
                             title='Continue with Email'
                             handlePress={() => {router.push('./sign-in')} }
-                            containerStyles="mt-5 w-full" 
+                            containerStyles="mt-5 w-[300px]" 
                             textStyles={''} 
                             isLoading={false}                        
                         />

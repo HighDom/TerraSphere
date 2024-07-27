@@ -12,6 +12,7 @@ type FormFieldProps = {
 
 
 const FormField = ({title, value, handleChangeText, otherStyles, placeHolder, ...props}: FormFieldProps) => {
+    
     const [showPassword, setShowPassword] = React.useState(false)
     
     return (
@@ -21,12 +22,12 @@ const FormField = ({title, value, handleChangeText, otherStyles, placeHolder, ..
             </Text>
             <View className='w-full h-16 px-4 bg-black-100 rounded-2xl border-2 border-black-200 focus:border-secondary flex flex-row items-center'>
                 <TextInput 
+                    className='flex-1 text-white font-psemibold text-base'
                     value={value}
-                    onChangeText={handleChangeText}
                     placeholder={placeHolder}
                     placeholderTextColor="#7B7B8B"
+                    onChangeText={handleChangeText}
                     secureTextEntry={title === "Password" && !showPassword}
-                    className='flex-1 text-white font-psemibold text-base'
                     {...props}
                 />
                 {title === 'Password' && (

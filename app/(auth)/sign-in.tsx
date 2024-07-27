@@ -6,6 +6,7 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 import { images } from '../../constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
+import { Link } from 'expo-router'
 
 const SignIn = () => {
 
@@ -14,12 +15,18 @@ const SignIn = () => {
     password: '', 
   });
 
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+
+  const submit = () => {
+
+  }
+
 
   return (
     <SafeAreaView className='bg-primary h-full'>
       <GestureHandlerRootView>
         <ScrollView contentContainerStyle={{ height: '100%' }}>
-          <View className='items-center justify-center w-full h-full px-4 my-4'>
+          <View className='items-center w-full h-full px-4 my-4'>
             <Image 
               source={images.logo}
               className="w-[115px] h-[34px]"
@@ -45,16 +52,16 @@ const SignIn = () => {
 
             <CustomButton
               title='Log in'
-              handlePress={() => {}}
-              containerStyles='mt-5 w-full'
-              textStyles=''
-              isLoading={false}
+              handlePress={submit}
+              containerStyles='mt-7 w-[200] h-[34px]'
+              textStyles={''} 
+              isLoading={isSubmitting}
             />
 
-            <Text className='text-white text-center mt-5 font-pregular'>
-              Don't have an account? 
-              <Text className='text-secondary-200'> Sign up</Text>
-            </Text>
+            <View className='flex flex-row justify-center items-center mt-5'>
+              <Text className='text-white font-pmedium text-base'>Don't have an account?</Text>
+              <Link href='/sign-up' className='text-secondary font-pmedium text-base ml-1'>Sign up</Link>
+            </View>
           </View>
         </ScrollView>
       </GestureHandlerRootView>
