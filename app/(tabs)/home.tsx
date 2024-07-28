@@ -1,17 +1,23 @@
-import { View, Text, SafeAreaView, Image } from 'react-native'
-import React, { useState } from 'react'
+import { View, Text, SafeAreaView, Image, Alert } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { FlatList, GestureHandlerRootView, RefreshControl } from 'react-native-gesture-handler'
 import { images } from '@/constants'
 import SearchInput from '@/components/SearchInput'
 import Trending from '@/components/Trending'
 import EmptyState from '@/components/EmptyState'
+import useAppwrite from '@/lib/useAppwrite'
+import { getAllPosts } from '@/lib/appwrite'
+import VideoCard from '@/components/VideoCard'
 
 const Home = () => {
+
+  const {data: posts = [] as any[], refetch } = useAppwrite(getAllPosts);
+
   const [refreshing, setRefreshing] = useState(false);
 
-  const onRefresh = () => {
+  const onRefresh = async () => {
     setRefreshing(true);
-
+    await refetch();
     setRefreshing(false);
   }
 
@@ -21,10 +27,10 @@ const Home = () => {
     <GestureHandlerRootView>
       <SafeAreaView className='bg-primary h-full'>
         <FlatList 
-          data={[{id: 1},{id:2}, {id:69}]} 
-          keyExtractor={(item) => item.id.toString()}
+          data={posts} 
+          keyExtractor={(item) => item.$id}
           renderItem={({item}) => (
-            <Text className='text-3xl text-white'>{item.id}</Text>
+            <VideoCard video={item} />
           )}
           ListHeaderComponent={() => (
             <View className='my-6 px-4 space-y-4'>
@@ -56,6 +62,7 @@ const Home = () => {
                 otherStyles={''} 
                  placeHolder={''}
                 />
+              
               <View className='w-full flex-1 pt-5 pb-8'>
                 <Text className='text-gray-100 text-lg font-pregular mb-3'>
                   Latest Videos
