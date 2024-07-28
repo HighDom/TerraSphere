@@ -8,8 +8,17 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 
 import { images } from '../constants';
 import CustomButton from '@/components/CustomButton';
+import { useGlobalContext } from '@/context/GlobalProvider';
+
+
 
 const index = () => {
+
+    const {isLoading, isLoggedIn} = useGlobalContext();
+
+    if (!isLoading && isLoggedIn) {
+        return <Redirect href='/(tabs)/home'/>
+    }
     return (
         <SafeAreaView className='bg-primary h-full'>
             <GestureHandlerRootView>

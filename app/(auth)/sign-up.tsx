@@ -24,17 +24,19 @@ const SignUp = () => {
   
 
   const submit = async () => {
-    if (!form.email || !form.password || !form.username) {
-      Alert.alert('error', 'Please fill all fields');
+    if (form.username === "" || form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
     }
 
     setIsSubmitting(true);
-    try {
-      const result = await createUser(form.email, form.password, form.username);
 
+    try {
+      console.log("user about to be created");
+      const result = await createUser(form.email, form.password, form.username);
+      console.log("user created", result);
       //set it to global state
       
-      router.replace('/home');
+      router.replace('/../(tabs)/home');
     } catch (error: any) {
       Alert.alert('error', error.message);
     } finally {

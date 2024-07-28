@@ -1,4 +1,4 @@
-import { View, Text, Image} from 'react-native'
+import { View, Text, Image, Alert} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
@@ -6,19 +6,38 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 import { images } from '../../constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+
+import { signIn } from '@/lib/appwrite'
 
 const SignIn = () => {
 
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
  const [form, setForm] = React.useState({
     email: '',
     password: '', 
   });
 
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  
 
-  const submit = () => {
+  const submit = async () => {
+    if (form.email === "" || form.password === "") {
+      Alert.alert("Error", "Please fill in all fields");
+    }
 
+    setIsSubmitting(true);
+
+    try {
+      const result = await signIn(form.email, form.password);
+
+      //set it to global state
+      
+      router.replace('/../(tabs)/home');
+    } catch (error: any) {
+      Alert.alert('error', error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
 
