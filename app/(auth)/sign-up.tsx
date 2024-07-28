@@ -1,4 +1,4 @@
-import { View, Text, Image} from 'react-native'
+import { View, Text, Image, Alert} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler'
@@ -6,7 +6,10 @@ import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler
 import { images } from '../../constants'
 import FormField from '@/components/FormField'
 import CustomButton from '@/components/CustomButton'
-import { Link } from 'expo-router'
+import { Link, router } from 'expo-router'
+import { createUser } from '../../lib/appwrite'
+import { ID } from "react-native-appwrite";
+
 
 const SignUp = () => {
 
@@ -18,10 +21,26 @@ const SignUp = () => {
 
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
-  const submit = () => {
+  
 
+  const submit = async () => {
+    if (!form.email || !form.password || !form.username) {
+      Alert.alert('error', 'Please fill all fields');
+    }
+
+    setIsSubmitting(true);
+    try {
+      const result = await createUser(form.email, form.password, form.username);
+
+      //set it to global state
+      
+      router.replace('/home');
+    } catch (error: any) {
+      Alert.alert('error', error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
-
 
   return (
     <SafeAreaView className='bg-primary h-full'>
@@ -37,8 +56,8 @@ const SignUp = () => {
             <Text className='text-2xl text-white text-semibold mt-10 font-psemibold text-center'> Sign up to Aora</Text>
             <FormField 
               title='Username'
-              value={form.email}
-              handleChangeText={(e) => setForm({...form, email: e})}
+              value={form.username}
+              handleChangeText={(e) => setForm({...form, username: e})}
               otherStyles='mt-5'
               placeHolder='username'
             />
