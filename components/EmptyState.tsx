@@ -6,10 +6,10 @@ import { router } from 'expo-router';
 
 type EmptyStateProps = {
   title: string;
-  subTitle: string;
+  subtitle: string;
 }
 
-const EmptyState = ({title, subTitle}: EmptyStateProps) => {
+const EmptyState = ({title, subtitle}: EmptyStateProps) => {
   return (
     <View className='justify-center items-center px-4'>
         <Image
@@ -18,7 +18,7 @@ const EmptyState = ({title, subTitle}: EmptyStateProps) => {
             resizeMode='contain'
         />
         <Text className='text-xl text-white font-pbold'>{title}</Text>
-        <Text className='text-ml text-gray-100 text-center font-psemibold'>{subTitle}</Text>
+        <Text className='text-ml text-gray-100 text-center font-psemibold'>{subtitle}</Text>
         <CustomButton 
             title='Upload Video'
             handlePress={() => router.push('/create')}
