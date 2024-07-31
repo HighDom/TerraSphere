@@ -55,6 +55,7 @@ const Home = () => {
               </View>
 
               <SearchInput 
+                initialQuery={''}
                 title={''} 
                 value={''} 
                 handleChangeText={function (text: string): void {
@@ -69,7 +70,7 @@ const Home = () => {
                   Latest Videos
                 </Text>
                 
-                <Trending posts={latestPosts ?? []} activeItem={undefined}/>
+                <Trending posts={latestPosts ?? []} activeItem={undefined} />
 
               </View>
             </View>
