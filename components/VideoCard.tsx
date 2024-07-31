@@ -2,6 +2,8 @@ import { View, Text, Image, Dimensions } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { icons } from '@/constants';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { AV, AVPlaybackStatus } from 'expo-av/build/AV';
+import { ResizeMode, Video } from 'expo-av';
 
 type VideoCardProps = {
     video: {
@@ -38,7 +40,14 @@ const VideoCard = ({video: {title, thumbnail, video, creator: {username, avatar}
                 activeOpacity={0.7}
             >
                 {play ? (
-                    <Text className="text-white">Playing</Text>
+                    <Video 
+                    source={{uri : video}}
+                    className='w-full h-60 rounded-xl mt-3'
+                    resizeMode={ResizeMode.COVER}
+                    useNativeControls
+                    shouldPlay
+                    onPlaybackStatusUpdate={(status:AVPlaybackStatus) => {if (status.isLoaded && status.didJustFinish) setPlay(false);}}
+                  />
                 ) : thumbnailError ? (
                     <View className="bg-gray-700 rounded-xl w-full aspect-video justify-center items-center">
                     <Text className="text-white">Failed to load thumbnail</Text>
