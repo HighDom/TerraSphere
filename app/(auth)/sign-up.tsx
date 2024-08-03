@@ -9,9 +9,12 @@ import CustomButton from '@/components/CustomButton'
 import { Link, router } from 'expo-router'
 import { createUser } from '../../lib/appwrite'
 import { ID } from "react-native-appwrite";
+import { useGlobalContext } from '@/context/GlobalProvider'
 
 
 const SignUp = () => {
+
+  const [setUser, setIsLoggedIn] = useGlobalContext();
 
  const [form, setForm] = React.useState({
     username: '',
@@ -24,6 +27,8 @@ const SignUp = () => {
   
 
   const submit = async () => {
+    
+    
     if (form.username === "" || form.email === "" || form.password === "") {
       Alert.alert("Error", "Please fill in all fields");
     }
@@ -34,7 +39,9 @@ const SignUp = () => {
       console.log("user about to be created");
       const result = await createUser(form.email, form.password, form.username);
       console.log("user created", result);
-      //set it to global state
+      
+      setUser(result);
+      setIsLoggedIn(true);
       
       router.replace('/../(tabs)/home');
     } catch (error: any) {

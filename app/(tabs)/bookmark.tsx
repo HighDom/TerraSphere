@@ -1,12 +1,16 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import { Text } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Bookmark = () => {
   return (
-    <View>
-      <Text>Bookmark</Text>
-    </View>
-  )
-}
+    <GestureHandlerRootView>
+      <SafeAreaView className="bg-primary h-full">
+        <Text className="text-2xl text-white font-psemibold">Bookmark</Text>
+      </SafeAreaView>
+    </GestureHandlerRootView>
 
-export default Bookmark
+  );
+};
+
+export default Bookmark;

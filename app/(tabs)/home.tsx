@@ -72,7 +72,9 @@ const Home = () => {
             <View className='flex-1 justify-center items-center'>
               <EmptyState 
                 title='No Videos Found' 
-                subtitle='Be the first one to Upload a video'              />
+                subtitle='Be the first one to Upload a video'   
+                buttonTitle='Create Video'           
+              />
             </View>
           )}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}

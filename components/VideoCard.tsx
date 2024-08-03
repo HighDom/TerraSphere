@@ -7,17 +7,25 @@ import { ResizeMode, Video } from 'expo-av';
 
 type VideoCardProps = {
     video: {
-      title: string;
-      thumbnail: string;
-      video: string;
-      creator: {
-        username: string;
-        avatar: string;
-      };
-    };
+        title: string;
+        thumbnail: string;
+        video: string;
+        creator: {
+          username: string;
+          avatar: string;
+        };
+    }
+
 };
 
 const VideoCard = ({video: {title, thumbnail, video, creator: {username, avatar}}}: VideoCardProps) => {
+    console.log("VideoCard rendering with video:", video);  // Debug log
+
+    if (!video || !title || !username || !avatar || !thumbnail) {
+        console.error("VideoCard received invalid video object:", video);
+        return <Text>Error: Invalid video data!</Text>;
+    }
+
     const [play, setPlay] = useState(false);
     const [avatarError, setAvatarError] = useState(false);
     const [thumbnailError, setThumbnailError] = useState(false);
@@ -40,6 +48,7 @@ const VideoCard = ({video: {title, thumbnail, video, creator: {username, avatar}
                 activeOpacity={0.7}
             >
                 {play ? (
+
                     <Video 
                     source={{uri : video}}
                     className='w-full h-60 rounded-xl mt-3'
