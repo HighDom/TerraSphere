@@ -54,15 +54,7 @@ const Home = () => {
                 
               </View>
 
-              <SearchInput 
-                initialQuery={''}
-                title={''} 
-                value={''} 
-                handleChangeText={function (text: string): void {
-                  throw new Error('Function not implemented.')
-                } } 
-                otherStyles={''} 
-                 placeHolder={''}
+              <SearchInput initialQuery=''
                 />
               
               <View className='w-full flex-1 pt-5 pb-8'>
@@ -80,7 +72,7 @@ const Home = () => {
             <View className='flex-1 justify-center items-center'>
               <EmptyState 
                 title='No Videos Found' 
-                subTitle='Be the first one to Upload a video'              />
+                subtitle='Be the first one to Upload a video'              />
             </View>
           )}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
